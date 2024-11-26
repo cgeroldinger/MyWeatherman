@@ -1,0 +1,346 @@
+action: open_epaper_link.drawcustom
+target:
+  entity_id:
+    - open_epaper_link.MAC_OF_YOUR_TAG
+data:
+  background: white
+  rotate: 90
+  payload:
+    - type: text
+      value: >-
+        {{['Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag','Sonntag'][now().weekday()]}},
+        {{ now().day }}.{{ now().month }}.{{ now().year }}
+      font: /media/arialbd.ttf
+      x: 10
+      "y": 10
+      size: 30
+      color: black
+    - type: text
+      value: "{{ (as_timestamp(now())) | timestamp_custom ('%H:%M', true) }}"
+      font: /media/arialbd.ttf
+      x: 370
+      "y": 10
+      size: 30
+      color: black
+
+#wetter_aktuell    
+    - type: icon
+      value: >-
+        weather-{{ state_attr('sensor.weatherman_data_tag','wm_cond_now') |
+        string }}
+      x: 10
+      "y": 35
+      size: 90
+      color: black
+
+      
+    - type: text
+      value: >-
+        {{ state_attr('sensor.weatherman_data_tag','wm_temp_now') | int(0) }}{{
+        state_attr('sensor.weatherman_data_tag','temperature_unit') }}
+      font: /media/GothamRnd-Bold.ttf
+      x: 170
+      "y": 80
+      size: 50
+      anchor: mm
+      color: black
+    - type: text
+      value: "{{ state_attr('sensor.weatherman_data_tag','sun_next_rising')}}"
+      font: /media/GothamRnd-Bold.ttf
+      x: 340
+      "y": 75
+      size: 30
+      color: black
+      anchor: rm
+    - type: icon
+      value: weather-sunset-up
+      x: 240
+      "y": 60
+      size: 30
+      color: black
+    - type: text
+      value: "{{ state_attr('sensor.weatherman_data_tag','sun_next_setting')}}"
+      font: /media/GothamRnd-Bold.ttf
+      x: 450
+      "y": 75
+      size: 30
+      color: black
+      anchor: rm
+    - type: icon
+      value: weather-sunset-down
+      x: 340
+      "y": 60
+      size: 30
+      color: black
+    - type: line
+      fill: black
+      width: 1
+      x_start: 10
+      y_start: 125
+      x_end: 470
+      y_end: 125
+      
+#--------------3 stunden --------
+# hours
+    - type: text
+      value: >-
+        {{ state_attr('sensor.weatherman_data_tag','wm_time_0') | string | upper
+        }} h
+      font: /media/GothamRnd-Bold.ttf
+      x: 70
+      "y": 175
+      size: 40
+      color: black
+      anchor: mb
+    - type: text
+      value: >-
+        {{ state_attr('sensor.weatherman_data_tag','wm_time_1') | string | upper
+        }} h
+      font: /media/GothamRnd-Bold.ttf
+      x: 240
+      "y": 175
+      size: 40
+      color: black
+      anchor: mb
+    - type: text
+      value: >-
+        {{ state_attr('sensor.weatherman_data_tag','wm_time_2') | string | upper
+        }} h
+      font: /media/GothamRnd-Bold.ttf
+      x: 410
+      "y": 175
+      size: 40
+      color: black
+      anchor: mb
+# icons
+    - type: icon
+      value: >-
+        weather-{{ state_attr('sensor.weatherman_data_tag','wm_cond_0') | string
+        }}
+      x: 25
+      "y": 170
+      size: 100
+      color: black
+    - type: icon
+      value: >-
+        weather-{{ state_attr('sensor.weatherman_data_tag','wm_cond_1') | string
+        }}
+      x: 190
+      "y": 170
+      size: 100
+      color: black
+    - type: icon
+      value: >-
+        weather-{{ state_attr('sensor.weatherman_data_tag','wm_cond_2') | string
+        }}
+      x: 360
+      "y": 170
+      size: 100
+      color: black
+# temps
+    - type: text
+      value: >-
+        {{ state_attr('sensor.weatherman_data_tag','wm_temp_0') | string }}{{
+        state_attr('sensor.weatherman_data_tag','temperature_unit') }}
+      font: /media/GothamRnd-Bold.ttf
+      x: 80
+      "y": 280
+      size: 40
+      color: black
+      anchor: mt
+    - type: text
+      value: >-
+        {{ state_attr('sensor.weatherman_data_tag','wm_temp_1') | string }}{{
+        state_attr('sensor.weatherman_data_tag','temperature_unit') }}
+      font: /media/GothamRnd-Bold.ttf
+      x: 250
+      "y": 280
+      size: 40
+      color: black
+      anchor: mt
+    - type: text
+      value: >-
+        {{ state_attr('sensor.weatherman_data_tag','wm_temp_2') | string }}{{
+        state_attr('sensor.weatherman_data_tag','temperature_unit') }}
+      font: /media/GothamRnd-Bold.ttf
+      x: 420
+      "y": 280
+      size: 40
+      color: black
+      anchor: mt
+
+
+#------------------------
+#-----Line before preview----------
+
+    - type: line
+      fill: black
+      width: 3
+      x_start: 10
+      y_start: 330
+      x_end: 470
+      y_end: 330
+
+
+#3tage vorschau    
+    - type: text
+      value: >-
+        {{ state_attr('sensor.weatherman_data_tag','wm_time_4') | string | upper
+        }}
+      font: /media/GothamRnd-Bold.ttf
+      x: 70
+      "y": 370
+      size: 40
+      color: black
+      anchor: mb
+    - type: text
+      value: >-
+        {{ state_attr('sensor.weatherman_data_tag','wm_time_5') | string | upper
+        }}
+      font: /media/GothamRnd-Bold.ttf
+      x: 240
+      "y": 370
+      size: 40
+      color: black
+      anchor: mb
+    - type: text
+      value: >-
+        {{ state_attr('sensor.weatherman_data_tag','wm_time_6') | string | upper
+        }}
+      font: /media/GothamRnd-Bold.ttf
+      x: 410
+      "y": 370
+      size: 40
+      color: black
+      anchor: mb
+
+      
+    - type: icon
+      value: >-
+        weather-{{ state_attr('sensor.weatherman_data_tag','wm_cond_4') | string
+        }}
+      x: 25
+      "y": 370
+      size: 100
+      color: black
+
+      
+    - type: icon
+      value: >-
+        weather-{{ state_attr('sensor.weatherman_data_tag','wm_cond_5') | string
+        }}
+      x: 190
+      "y": 370
+      size: 100
+      color: black
+      
+    - type: icon
+      value: >-
+        weather-{{ state_attr('sensor.weatherman_data_tag','wm_cond_6') | string
+        }}
+      x: 360
+      "y": 370
+      size: 100
+      color: black
+
+      
+    - type: text
+      value: "{{ state_attr('sensor.weatherman_data_tag','wm_temp_4')  | string }}/"
+      font: /media/GothamRnd-Bold.ttf
+      x: 85
+      "y": 470
+      size: 40
+      color: black
+      anchor: rt
+    - type: text
+      value: "{{ state_attr('sensor.weatherman_data_tag','wm_temp_4_low') | string }}"
+      font: /media/GothamRnd-Bold.ttf
+      x: 85
+      "y": 479
+      size: 40
+      color: black
+      anchor: lt
+
+      
+    - type: text
+      value: "{{ state_attr('sensor.weatherman_data_tag','wm_temp_5') | string }}/"
+      font: /media/GothamRnd-Bold.ttf
+      x: 255
+      "y": 470
+      size: 40
+      color: black
+      anchor: rt
+    - type: text
+      value: "{{ state_attr('sensor.weatherman_data_tag','wm_temp_5_low') | string }}"
+      font: /media/GothamRnd-Bold.ttf
+      x: 255
+      "y": 479
+      size: 40
+      color: black
+      anchor: lt
+    - type: text
+      value: "{{ state_attr('sensor.weatherman_data_tag','wm_temp_6') | string }}/"
+      font: /media/GothamRnd-Bold.ttf
+      x: 420
+      "y": 470
+      size: 40
+      color: black
+      anchor: rt
+    - type: text
+      value: "{{ state_attr('sensor.weatherman_data_tag','wm_temp_6_low') | string }}"
+      font: /media/GothamRnd-Bold.ttf
+      x: 420
+      "y": 479
+      size: 40
+      color: black
+      anchor: lt
+
+
+
+#line after preview
+      
+    - type: line
+      fill: black
+      width: 1
+      x_start: 10
+      y_start: 520
+      x_end: 470
+      y_end: 520
+    - type: multiline
+      value: >-
+        {{ (strptime('11/28/2024', '%m/%d/%Y', today_at()) | as_local -
+        today_at()).days }} Tage - Wonderland - 28. Nov 2024 |
+
+        {{ (strptime('12/06/2024', '%m/%d/%Y', today_at()) | as_local -
+        today_at()).days }} Tage - Krampustreiben - 6. Dez 2024 |
+
+        {{ (strptime('01/23/2025', '%m/%d/%Y', today_at()) | as_local -
+        today_at()).days }} Tage - Phantom der Oper - 23.Jan 2025 |
+
+        {{ (strptime('03/11/2025', '%m/%d/%Y', today_at()) | as_local -
+        today_at()).days }} Tage - Gernot & Stipsits - 11.Mar 2025 |
+
+        {{ (strptime('03/20/2025', '%m/%d/%Y', today_at()) | as_local -
+        today_at()).days }} Tage - Paul Panzer - 20.Mar 2025 |
+
+        {{ (strptime('05/22/2025', '%m/%d/%Y', today_at()) | as_local -
+        today_at()).days }} Tage - Torsten Sträter - 22.Mai 2025 |
+
+        {{ (strptime('07/16/2025', '%m/%d/%Y', today_at()) | as_local -
+        today_at()).days }} Tage - Cats - 16.Jul 2025 |
+      delimiter: "|"
+      font: /media/arialbd.ttf
+      start_y: 550
+      offset_y: 30
+      x: 10
+      size: 23
+      color: black
+
+    - type: text
+      value: Batt {{ states('sensor.NAME_OF_YOUR_TAG-entitiy_battery') }} %
+      font: /media/arialbd.ttf
+      x: 10
+      "y": 780
+      size: 14
+      color: black
+  dry-run: false
